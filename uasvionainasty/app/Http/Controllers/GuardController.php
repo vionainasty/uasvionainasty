@@ -12,8 +12,10 @@ class GuardController extends Controller
      */
     public function index()
     {
-        $guards = Guard::all();
-        return view('guards.index', compact('guards'));
+        // Menampilkan data guard terbaru di atas
+        $guards = Guard::orderBy('created_at', 'desc')->paginate(5);
+        $total = Guard::count();
+        return view('guards.index', compact('guards', 'total'));
     }
 
     /**
@@ -33,8 +35,10 @@ class GuardController extends Controller
             'name' => 'required|min:3|max:100',
             'email' => 'required|email|unique:guards,email',
         ]);
-        Guard::create($validated);
-        return redirect()->route('guards.index')->with('success', 'Guard berhasil ditambahkan!');
+        $guard = Guard::create($validated);
+        // Logika tambahan: simpan waktu pendaftaran
+        // $guard->created_at sudah otomatis oleh Laravel
+        return redirect()->route('guards.index')->with('success', 'Guard baru berhasil ditambahkan!');
     }
 
     /**
@@ -66,7 +70,9 @@ class GuardController extends Controller
         ]);
         $guard = Guard::findOrFail($id);
         $guard->update($validated);
-        return redirect()->route('guards.index')->with('success', 'Guard berhasil diupdate!');
+        // Logika tambahan: simpan waktu update terakhir
+        // $guard->updated_at sudah otomatis oleh Laravel
+        return redirect()->route('guards.index')->with('success', 'Data guard berhasil diperbarui!');
     }
 
     /**
@@ -76,6 +82,7 @@ class GuardController extends Controller
     {
         $guard = Guard::findOrFail($id);
         $guard->delete();
-        return redirect()->route('guards.index')->with('success', 'Guard berhasil dihapus!');
+        // Logika tambahan: notifikasi penghapusan
+        return redirect()->route('guards.index')->with('success', 'Guard telah dihapus dari sistem!');
     }
 }
