@@ -3,7 +3,10 @@
 @section('content')
 <div class="row justify-content-center">
     <div class="col-md-6">
-        <h2>Detail Guard</h2>
+        <h2>{{ $title ?? 'Detail Guard' }}</h2>
+        @if(!empty($subtitle))
+            <div class="mb-3 text-muted">{{ $subtitle }}</div>
+        @endif
         <div class="card card-body shadow-sm mb-3">
             <div class="mb-2">
                 <strong>Nama:</strong> {{ $guard->name }}
