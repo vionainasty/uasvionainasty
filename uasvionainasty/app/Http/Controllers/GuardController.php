@@ -62,8 +62,14 @@ class GuardController extends Controller
      */
     public function edit($id)
     {
+        // Ambil data guard berdasarkan id
         $guard = Guard::findOrFail($id);
-        return view('guards.edit', compact('guard'));
+        // Kirim data guard dan judul ke view
+        return view('guards.edit', [
+            'guard' => $guard,
+            'title' => 'Edit Data Guard',
+            'subtitle' => 'Perbarui data guard di bawah ini.'
+        ]);
     }
 
     /**
