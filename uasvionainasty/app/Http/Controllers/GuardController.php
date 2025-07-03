@@ -35,14 +35,17 @@ class GuardController extends Controller
      */
     public function store(Request $request)
     {
+        // Validasi input user
         $validated = $request->validate([
-            'name' => 'required|min:3|max:100',
-            'email' => 'required|email|unique:guards,email',
+            'name' => ['required', 'string', 'min:3', 'max:100'],
+            'email' => ['required', 'email', 'unique:guards,email'],
         ]);
+        // Simpan data guard baru
         $guard = Guard::create($validated);
-        // Logika tambahan: simpan waktu pendaftaran
-        // $guard->created_at sudah otomatis oleh Laravel
-        return redirect()->route('guards.index')->with('success', 'Guard baru berhasil ditambahkan!');
+        // Redirect dengan notifikasi sukses
+        return redirect()
+            ->route('guards.index')
+            ->with('success', 'Guard "' . $guard->name . '" berhasil didaftarkan!');
     }
 
     /**
