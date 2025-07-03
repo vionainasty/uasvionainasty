@@ -77,15 +77,18 @@ class GuardController extends Controller
      */
     public function update(Request $request, $id)
     {
+        // Validasi input user
         $validated = $request->validate([
-            'name' => 'required|min:3|max:100',
-            'email' => 'required|email|unique:guards,email,' . $id,
+            'name' => ['required', 'string', 'min:3', 'max:100'],
+            'email' => ['required', 'email', 'unique:guards,email,' . $id],
         ]);
+        // Update data guard
         $guard = Guard::findOrFail($id);
         $guard->update($validated);
-        // Logika tambahan: simpan waktu update terakhir
-        // $guard->updated_at sudah otomatis oleh Laravel
-        return redirect()->route('guards.index')->with('success', 'Data guard berhasil diperbarui!');
+        // Redirect dengan notifikasi sukses
+        return redirect()
+            ->route('guards.index')
+            ->with('success', 'Data guard "' . $guard->name . '" berhasil diperbarui!');
     }
 
     /**
