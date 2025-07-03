@@ -20,7 +20,7 @@
                 <input type="email" name="email" class="form-control @error('email') is-invalid @enderror" value="{{ old('email', $guard->email) }}" required>
                 @error('email')<div class="invalid-feedback">{{ $message }}</div>@enderror
             </div>
-            <button type="submit" class="btn btn-primary">Update</button>
+            <button type="submit" class="btn btn-primary mb-2">Update</button>
             <a href="{{ route('guards.index') }}" class="btn btn-secondary">Batal</a>
         </form>
     </div>

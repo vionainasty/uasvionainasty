@@ -37,8 +37,16 @@ class GuardController extends Controller
     {
         // Validasi input user
         $validated = $request->validate([
-            'name' => ['required', 'string', 'min:3', 'max:100'],
+            'name' => ['required', 'string', 'min:3', 'max:100', 'regex:/^[a-zA-Z\s]+$/'],
             'email' => ['required', 'email', 'unique:guards,email'],
+        ], [
+            'name.required' => 'Nama wajib diisi.',
+            'name.min' => 'Nama minimal 3 karakter.',
+            'name.max' => 'Nama maksimal 100 karakter.',
+            'name.regex' => 'Nama hanya boleh huruf dan spasi.',
+            'email.required' => 'Email wajib diisi.',
+            'email.email' => 'Format email tidak valid.',
+            'email.unique' => 'Email sudah terdaftar.',
         ]);
         // Simpan data guard baru
         $guard = Guard::create($validated);
@@ -79,8 +87,16 @@ class GuardController extends Controller
     {
         // Validasi input user
         $validated = $request->validate([
-            'name' => ['required', 'string', 'min:3', 'max:100'],
+            'name' => ['required', 'string', 'min:3', 'max:100', 'regex:/^[a-zA-Z\s]+$/'],
             'email' => ['required', 'email', 'unique:guards,email,' . $id],
+        ], [
+            'name.required' => 'Nama wajib diisi.',
+            'name.min' => 'Nama minimal 3 karakter.',
+            'name.max' => 'Nama maksimal 100 karakter.',
+            'name.regex' => 'Nama hanya boleh huruf dan spasi.',
+            'email.required' => 'Email wajib diisi.',
+            'email.email' => 'Format email tidak valid.',
+            'email.unique' => 'Email sudah terdaftar.',
         ]);
         // Update data guard
         $guard = Guard::findOrFail($id);
