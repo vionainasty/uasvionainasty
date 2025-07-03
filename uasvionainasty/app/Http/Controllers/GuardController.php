@@ -23,7 +23,11 @@ class GuardController extends Controller
      */
     public function create()
     {
-        return view('guards.create');
+        // Menampilkan form tambah guard
+        return view('guards.create', [
+            'title' => 'Tambah Guard Baru',
+            'subtitle' => 'Silakan isi data dengan benar.'
+        ]);
     }
 
     /**
