@@ -3,7 +3,10 @@
 @section('content')
 <div class="row justify-content-center">
     <div class="col-md-6">
-        <h2>Edit Guard</h2>
+        <h2>{{ $title ?? 'Edit Guard' }}</h2>
+        @if(!empty($subtitle))
+            <div class="mb-3 text-muted">{{ $subtitle }}</div>
+        @endif
         <form action="{{ route('guards.update', $guard->id) }}" method="POST" class="card card-body shadow-sm">
             @csrf
             @method('PUT')
