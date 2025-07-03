@@ -2,7 +2,10 @@
 
 @section('content')
 <div class="d-flex justify-content-between align-items-center mb-3">
-    <h2>Daftar Guard</h2>
+    <div>
+        <h2>Daftar Guard</h2>
+        <div class="text-muted">Total: {{ $total }} guard</div>
+    </div>
     <a href="{{ route('guards.create') }}" class="btn btn-success">Tambah Guard</a>
 </div>
 @if($guards->isEmpty())
@@ -36,5 +39,8 @@
         @endforeach
     </tbody>
 </table>
+<div class="mt-3">
+    {{ $guards->links() }}
+</div>
 @endif
 @endsection
