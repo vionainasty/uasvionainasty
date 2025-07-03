@@ -97,8 +97,11 @@ class GuardController extends Controller
     public function destroy($id)
     {
         $guard = Guard::findOrFail($id);
+        $name = $guard->name;
         $guard->delete();
-        // Logika tambahan: notifikasi penghapusan
-        return redirect()->route('guards.index')->with('success', 'Guard telah dihapus dari sistem!');
+        // Redirect dengan notifikasi sukses
+        return redirect()
+            ->route('guards.index')
+            ->with('success', 'Guard "' . $name . '" telah dihapus dari sistem!');
     }
 }
